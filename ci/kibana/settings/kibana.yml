@@ -8,7 +8,8 @@ server.uuid: 5b2de169-2785-441b-ae8c-186a1936b17d
 status.allowAnonymous: true
 telemetry.banner: false
 telemetry.optIn: true
-telemetry.sendUsageTo: staging
+telemetry.optInStatusUrl: https://telemetry-staging.elastic.co/opt_in_status/v2/send
+telemetry.url: https://telemetry-staging.elastic.co/xpack/v2/send
 usageCollection.maximumWaitTimeForAllCollectorsInS: 1
 vis_type_timelion.ui.enable: true
 xpack.actions.allowedHosts: ["localhost","some.non.existent.com"]
