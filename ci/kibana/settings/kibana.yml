@@ -10,8 +10,8 @@ telemetry.banner: false
 telemetry.optIn: true
 telemetry.optInStatusUrl: https://telemetry-staging.elastic.co/opt_in_status/v2/send
 telemetry.url: https://telemetry-staging.elastic.co/xpack/v2/send
+timelion.ui.enabled: true
 usageCollection.maximumWaitTimeForAllCollectorsInS: 1
-vis_type_timelion.ui.enable: true
 xpack.actions.allowedHosts: ["localhost","some.non.existent.com"]
 xpack.actions.enabledActionTypes: [".email",".index",".pagerduty",".swimlane",".server-log",".servicenow",".slack",".webhook","test.authorization","test.failing","test.index-record","test.noop","test.rate-limit"]
 xpack.data_enhanced.search.sessions.cleanupInterval: 5s
