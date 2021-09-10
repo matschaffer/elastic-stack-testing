@@ -18,7 +18,40 @@ def genSetupTask(testname) {
         stackVersion = System.env.ESTF_CLOUD_VERSION
         esUserSettings = System.env.ESTF_ES_USER_SETTINGS
         kibanaUserSettings = System.env.ESTF_KIBANA_USER_SETTINGS
-        kibanaUserSettingsOverride = new File('product/settings/kibana.yml').getText('UTF-8')
+        try {
+            URL defaultCfgUrl =  new URL("https://raw.githubusercontent.com/elastic/elastic-stack-testing/" +
+                                         version + "/ci/cloud/product/settings/kibana.yml")
+
+            URL jobCfgUrl = new URL("https://raw.githubusercontent.com/elastic/elastic-stack-testing/" +
+                                    version + "/ci/cloud/product/settings/" + System.env.JOB.trim() + ".yml")
+
+            HttpURLConnection jobCfgHttp = (HttpURLConnection)jobCfgUrl.openConnection()
+            if (jobCfgHttp.getResponseCode() == 200) {
+                kibanaUserSettingsOverride = jobCfgUrl.getText('UTF-8')
+            } else {
+                kibanaUserSettingsOverride = defaultCfgUrl.getText('UTF-8')
+            }
+        } catch(Exception ignored) {}
+
+        if (System.env.JOB == "xpackGrp3") {
+            mlTesting = true
+            ingestNodeTesting = true
+            kbnReportsTesting = true
+        } else if (System.env.JOB == "xpackExtGrp1") {
+            mlTesting = true
+        } else if (System.env.JOB == "xpackExtGrp2") {
+            ingestNodeTesting = true
+        }
+        if (System.env.ESTF_ML_TESTING) {
+            mlTesting = true
+        }
+        if (System.env.ESTF_INGEST_NODE_TESTING) {
+            ingestNodeTesting = true
+        }
+        if (System.env.ESTF_KIBANA_REPORTS_TESTING) {
+            kbnReportsTesting = true
+        }
+>>>>>>> a1d0c8e (Add reporting custom tests (#1010))
     }
 }
 
