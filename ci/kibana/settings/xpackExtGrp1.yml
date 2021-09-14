@@ -9,8 +9,7 @@ server.uuid: 5b2de169-2785-441b-ae8c-186a1936b17d
 status.allowAnonymous: true
 telemetry.banner: false
 telemetry.optIn: true
-telemetry.optInStatusUrl: https://telemetry-staging.elastic.co/opt_in_status/v2/send
-telemetry.url: https://telemetry-staging.elastic.co/xpack/v2/send
+telemetry.sendUsageTo: staging
 timelion.ui.enabled: true
 usageCollection.maximumWaitTimeForAllCollectorsInS: 1
 xpack.actions.allowedHosts: ["localhost","some.non.existent.com"]
@@ -28,8 +27,10 @@ xpack.fleet.packages.0.name: endpoint
 xpack.fleet.packages.0.version: latest
 xpack.maps.preserveDrawingBuffer: true
 xpack.maps.showMapsInspectorAdapter: true
-xpack.maps.showMapVisualizationTypes: true
 xpack.observability.unsafe.cases.enabled: true
+xpack.reporting.capture.networkPolicy.rules: [{"allow":true,"protocol":"http:"},{"allow":false,"host":"via.placeholder.com"},{"allow":true,"protocol":"https:"},{"allow":true,"protocol":"data:"},{"allow":false}]
+xpack.reporting.csv.maxSizeBytes: 6000
+xpack.reporting.roles.enabled: false
 xpack.ruleRegistry.write.enabled: true
 xpack.security.encryptionKey: "wuGNaIhoMpk5sO4UBxgr3NyW1sFcLgIf"
 xpack.security.session.idleTimeout: 3600000
