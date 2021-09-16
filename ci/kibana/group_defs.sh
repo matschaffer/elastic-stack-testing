@@ -57,12 +57,15 @@ xpackGrp4="monitoring
            api_keys
           "
 
-xpackExtGrp1="reporting
-              api_integration
-              alerting_api_integration
+xpackExtGrp1="alerting_api_integration
               plugin_api_integration
              "
-xpackExtGrp2="spaces_api_integration
+
+xpackExtGrp2="api_integration
+              apm_api_integration
+              case_api_integration
+              lists_api_integration
+              spaces_api_integration
              "
 xpackExtGrp3="saved_object_api_integration
               ui_capabilities
