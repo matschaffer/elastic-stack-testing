@@ -13,4 +13,3 @@ xpack.discoverEnhanced.actions.exploreDataInContextMenu.enabled: true
 xpack.maps.preserveDrawingBuffer: true
 xpack.maps.showMapsInspectorAdapter: true
 xpack.maps.showMapVisualizationTypes: true
-xpack.observability.unsafe.cases.enabled: true
