@@ -5,7 +5,6 @@ basicGrp1="bundles
          home
          management
          status_page
-         timelion
         "
 
 basicGrp2="visualize
@@ -27,8 +26,15 @@ xpackGrp1="advanced_settings
            license_management
           "
 
-xpackGrp2="status_page
-           timelion
+xpackGrp2="canvas
+           dashboard_mode
+           dev_tools
+           discover
+           graph
+           infra
+           lens
+           logstash
+           status_page
            upgrade_assistant
            uptime
            visualize
