@@ -1,0 +1,28 @@
+#----------------------------------------------------------------------------------------------------------------------
+# Playbook: Stand up the stack for use with Stack Monitoring smoke testing
+#
+# Author: mat@elastic.co
+#----------------------------------------------------------------------------------------------------------------------
+
+- hosts: "{{ uut | default(lookup('env','AIT_UUT')) }}"
+  roles:
+    - role: elasticsearch
+    - role: kibana
+
+  vars_files:
+    - "{{ es_var_file | default(lookup('env','ANSIBLE_GROUP_VARS')) }}"
+
+  tasks:
+    - name: Start elasticsearch with internal collection enabled
+      include_role:
+        name: xpack_elasticsearch
+      vars:
+        elasticsearch_config_params:
+          - "xpack.monitoring.collection.enabled: true"
+        ait_role: xpack_elasticsearch_install_gencert_config_start_verify
+
+    - name: Start kibana
+      include_role:
+        name: xpack_kibana
+      vars:
+        ait_role: xpack_kibana_install_config_start_verify
