@@ -39,6 +39,7 @@ task get_kibana_repo {
         def version = (System.env.ESTF_KIBANA_VERSION).minus('origin/').replaceAll('master', 'main')
         def branch = System.env.ESTF_GITHUB_BRANCH
         def commit = System.env.ESTF_GITHUB_COMMIT
+        def externalClone = System.env.ESTF_KIBANA_EXTERNAL_CLONE
 
         String checkout_ver = version
 
@@ -49,16 +50,25 @@ task get_kibana_repo {
           checkout_ver = branch
         }
 
-        String kibanaRepo = 'git@github.com:' + github_owner + '/' + repo
-        String cloneCmd = 'git clone ' + kibanaRepo + ' ' + "$buildDir/kibana"
         File dir = new File("$buildDir/kibana")
-        runcmd(cloneCmd, null)
-        runcmd('git checkout ' + checkout_ver, dir)
 
-        if (commit) {
-            runcmd('git checkout ' + commit.toString(), dir)
-        } else if (rootProject.hasProperty('kibana_hash') && ! System.env.ESTF_FLAKY_TEST_SUITE && ! System.env.ESTF_KIBANA_CHECKOUT_LATEST) {
-            runcmd('git checkout ' + rootProject.kibana_hash.toString(), dir)
+        if (externalClone) {
+            String linkCmd = "ln -sf $externalClone $dir"
+            runcmd(linkCmd, null)
+        } else {
+            String kibanaRepo = 'git@github.com:' + github_owner + '/' + repo
+            String cloneCmd = 'git clone ' + kibanaRepo + ' ' + "$buildDir/kibana"
+            runcmd(cloneCmd, null)
+
+            runcmd('git checkout ' + checkout_ver, dir)
+
+            if (commit) {
+                println("Running from commit")
+                runcmd('git checkout ' + commit.toString(), dir)
+            } else if (rootProject.hasProperty('kibana_hash') && ! System.env.ESTF_FLAKY_TEST_SUITE && ! System.env.ESTF_KIBANA_CHECKOUT_LATEST) {
+                println("Running from kibana_hash")
+                runcmd('git checkout ' + rootProject.kibana_hash.toString(), dir)
+            }
         }
 
         def src = new File(System.env.WORKSPACE.toString() + "/ci/kibana/jenkins_kibana_tests.sh")
